@@ -97,6 +97,34 @@ async def get_photo(photo_id: str, authorization: Optional[str] = Header(None)):
         result["votes_count"] = await db.votes.count_documents({"photo_id": photo_id})
     return result
 
+@api_router.put("/photos/{photo_id}")
+async def replace_photo(photo_id: str, body: PhotoCreate, authorization: Optional[str] = Header(None)):
+    user = await get_current_user(authorization)
+    # Find the existing photo
+    p = await db.photos.find_one({"photo_id": photo_id}, {"_id": 0})
+    if not p: raise HTTPException(status_code=404, detail="Photo not found")
+    # Only the owner can replace
+    if p["user_id"] != user["user_id"]: raise HTTPException(status_code=403, detail="Not your photo")
+    # Can only replace during the current week
+    wid = week_id_for(now_utc())
+    if p["week_id"] != wid: raise HTTPException(status_code=400, detail="Cannot replace a photo from a past week")
+    # Update only image and caption — preserve everything else
+    await db.photos.update_one(
+        {"photo_id": photo_id},
+        {"$set": {
+            "image_base64": body.image_base64,
+            "caption": body.caption or "",
+            "updated_at": now_utc()
+        }}
+    )
+    updated = await db.photos.find_one({"photo_id": photo_id}, {"_id": 0})
+    return {
+        "photo_id": updated["photo_id"],
+        "week_id": updated["week_id"],
+        "caption": updated.get("caption", ""),
+        "updated_at": updated.get("updated_at").isoformat() if updated.get("updated_at") else None
+    }
+
 @api_router.post("/votes")
 async def cast_vote(body: VoteCreate, authorization: Optional[str] = Header(None)):
     user = await get_current_user(authorization)
