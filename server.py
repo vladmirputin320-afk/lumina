@@ -218,12 +218,60 @@ async def leaderboard(authorization: Optional[str] = Header(None)):
         result.append({"user_id": r["_id"], "name": u.get("name") if u else "Unknown", "picture": u.get("picture", "") if u else "", "votes": r["votes"]})
     return {"leaderboard": result}
 
+@api_router.get("/leaderboard/session")
+async def leaderboard_session(authorization: Optional[str] = Header(None)):
+    """Session leaderboard: votes earned only in the current week."""
+    await get_current_user(authorization)
+    wid = week_id_for(now_utc())
+    # Only look at votes cast this week for photos submitted this week
+    pipeline = [
+        {"$match": {"week_id": wid}},
+        {"$lookup": {"from": "photos", "localField": "photo_id", "foreignField": "photo_id", "as": "ph"}},
+        {"$unwind": "$ph"},
+        {"$group": {"_id": "$ph.user_id", "votes": {"$sum": 1}}},
+        {"$sort": {"votes": -1}},
+        {"$limit": 10}
+    ]
+    rows = await db.votes.aggregate(pipeline).to_list(10)
+    result = []
+    for r in rows:
+        u = await db.users.find_one({"user_id": r["_id"]}, {"_id": 0, "name": 1, "picture": 1})
+        result.append({
+            "user_id": r["_id"],
+            "name": u.get("name") if u else "Unknown",
+            "picture": u.get("picture", "") if u else "",
+            "votes": r["votes"]
+        })
+    return {"leaderboard": result, "week_id": wid}
+
 @api_router.get("/me/photos")
 async def my_photos(authorization: Optional[str] = Header(None)):
     user = await get_current_user(authorization)
     photos = await db.photos.find({"user_id": user["user_id"]}, {"_id": 0}).sort("created_at", -1).to_list(500)
-    items = [{"photo_id": p["photo_id"], "image_url": p.get("image_url", ""), "caption": p.get("caption", ""), "week_id": p["week_id"], "votes_count": await db.votes.count_documents({"photo_id": p["photo_id"]})} for p in photos]
-    return {"photos": items, "submissions": len(items), "wins": 0}
+    items = []
+    for p in photos:
+        vc = await db.votes.count_documents({"photo_id": p["photo_id"]})
+        items.append({"photo_id": p["photo_id"], "image_url": p.get("image_url", ""), "caption": p.get("caption", ""), "week_id": p["week_id"], "votes_count": vc})
+
+    # Count wins: weeks where this user had the photo with the most votes
+    current_wid = week_id_for(now_utc())
+    all_weeks = await db.photos.distinct("week_id")
+    past_weeks = [w for w in all_weeks if w != current_wid]
+    wins = 0
+    for wk in past_weeks:
+        pipeline = [
+            {"$match": {"week_id": wk}},
+            {"$lookup": {"from": "photos", "localField": "photo_id", "foreignField": "photo_id", "as": "ph"}},
+            {"$unwind": "$ph"},
+            {"$group": {"_id": "$ph.user_id", "votes": {"$sum": 1}}},
+            {"$sort": {"votes": -1}},
+            {"$limit": 1}
+        ]
+        top = await db.votes.aggregate(pipeline).to_list(1)
+        if top and top[0]["_id"] == user["user_id"] and top[0]["votes"] > 0:
+            wins += 1
+
+    return {"photos": items, "submissions": len(items), "wins": wins}
 
 @app.on_event("startup")
 async def on_startup():
