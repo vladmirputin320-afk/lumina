@@ -5,7 +5,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os, logging, uuid, httpx, cloudinary, cloudinary.uploader, base64
 from pathlib import Path
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime, timezone, timedelta
 
 ROOT_DIR = Path(__file__).parent
@@ -61,6 +61,7 @@ def delete_from_cloudinary(photo_id: str):
 class SessionCreate(BaseModel): session_token: str
 class PhotoCreate(BaseModel): image_base64: str; caption: Optional[str] = ""
 class VoteCreate(BaseModel): photo_id: str
+class TagsUpdate(BaseModel): tags: List[str]
 
 @api_router.get("/")
 async def root(): return {"message": "Lumina API", "week": week_id_for(now_utc())}
@@ -267,6 +268,14 @@ async def my_photos(authorization: Optional[str] = Header(None)):
             wins += 1
 
     return {"photos": items, "submissions": len(items), "wins": wins}
+
+@api_router.put("/me/tags")
+async def update_tags(body: TagsUpdate, authorization: Optional[str] = Header(None)):
+    user = await get_current_user(authorization)
+    valid = ['street','portrait','macro','nature','architecture','golden_hour','dark_moody','minimalist','film','abstract','still_life','night']
+    tags = [t for t in body.tags if t in valid][:5]
+    await db.users.update_one({"user_id": user["user_id"]}, {"$set": {"tags": tags}})
+    return {"tags": tags}
 
 @app.on_event("startup")
 async def on_startup():
