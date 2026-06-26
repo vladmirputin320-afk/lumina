@@ -41,8 +41,6 @@ async def get_current_user(authorization: Optional[str] = Header(None)):
     return user
 
 def upload_to_cloudinary(image_base64: str, photo_id: str) -> str:
-    """Upload base64 image to Cloudinary, return secure URL."""
-    # Strip data URI prefix if present
     if "," in image_base64:
         image_base64 = image_base64.split(",", 1)[1]
     result = cloudinary.uploader.upload(
@@ -55,7 +53,6 @@ def upload_to_cloudinary(image_base64: str, photo_id: str) -> str:
     return result["secure_url"]
 
 def delete_from_cloudinary(photo_id: str):
-    """Delete image from Cloudinary."""
     try:
         cloudinary.uploader.destroy(f"lumina/{photo_id}")
     except Exception as e:
@@ -67,6 +64,9 @@ class VoteCreate(BaseModel): photo_id: str
 
 @api_router.get("/")
 async def root(): return {"message": "Lumina API", "week": week_id_for(now_utc())}
+
+@api_router.get("/ping")
+async def ping(): return {"ok": True}
 
 @api_router.post("/auth/session")
 async def create_session(body: SessionCreate):
@@ -101,13 +101,12 @@ async def logout(authorization: Optional[str] = Header(None)):
 async def upload_photo(body: PhotoCreate, authorization: Optional[str] = Header(None)):
     user = await get_current_user(authorization)
     wid = week_id_for(now_utc()); photo_id = f"photo_{uuid.uuid4().hex[:12]}"
-    # Upload to Cloudinary
     image_url = upload_to_cloudinary(body.image_base64, photo_id)
     await db.photos.insert_one({
         "photo_id": photo_id,
         "user_id": user["user_id"],
         "week_id": wid,
-        "image_url": image_url,        # store URL, not base64
+        "image_url": image_url,
         "caption": body.caption or "",
         "created_at": now_utc()
     })
@@ -155,7 +154,6 @@ async def replace_photo(photo_id: str, body: PhotoCreate, authorization: Optiona
     if p["user_id"] != user["user_id"]: raise HTTPException(status_code=403, detail="Not your photo")
     wid = week_id_for(now_utc())
     if p["week_id"] != wid: raise HTTPException(status_code=400, detail="Cannot replace a photo from a past week")
-    # Re-upload to Cloudinary (overwrites same public_id)
     image_url = upload_to_cloudinary(body.image_base64, photo_id)
     await db.photos.update_one(
         {"photo_id": photo_id},
@@ -220,10 +218,8 @@ async def leaderboard(authorization: Optional[str] = Header(None)):
 
 @api_router.get("/leaderboard/session")
 async def leaderboard_session(authorization: Optional[str] = Header(None)):
-    """Session leaderboard: votes earned only in the current week."""
     await get_current_user(authorization)
     wid = week_id_for(now_utc())
-    # Only look at votes cast this week for photos submitted this week
     pipeline = [
         {"$match": {"week_id": wid}},
         {"$lookup": {"from": "photos", "localField": "photo_id", "foreignField": "photo_id", "as": "ph"}},
@@ -253,7 +249,6 @@ async def my_photos(authorization: Optional[str] = Header(None)):
         vc = await db.votes.count_documents({"photo_id": p["photo_id"]})
         items.append({"photo_id": p["photo_id"], "image_url": p.get("image_url", ""), "caption": p.get("caption", ""), "week_id": p["week_id"], "votes_count": vc})
 
-    # Count wins: weeks where this user had the photo with the most votes
     current_wid = week_id_for(now_utc())
     all_weeks = await db.photos.distinct("week_id")
     past_weeks = [w for w in all_weeks if w != current_wid]
