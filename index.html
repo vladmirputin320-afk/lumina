@@ -583,13 +583,22 @@ async function loadResults(){
     const wd=await wr.json();const ld=await lr.json();
     const wks=[wd.current_week,...(wd.past_weeks||[])].filter(Boolean);
     $('wchips').innerHTML=wks.map(w=>'<button class="chip'+(w===(actWk||wks[0])?' on':'')+'" onclick="loadWkRes(\''+w+'\')">'+w+(w===wd.current_week?' · live':'')+'</button>').join('');
-    loadWkRes(actWk||wks[0]);renderLeaderboard(ld.leaderboard||[]);
+    loadWkRes(actWk||wks[0]);
+    const isLive=!!wd.current_week;
+    if(isLive){
+      document.querySelector('.lb-tabs').style.display='none';
+      $('lbc').innerHTML='<div style="padding:32px 20px;text-align:center;color:var(--t3);font-size:12px;line-height:1.8">🔒 Leaderboard reveals when the week closes<br><span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.6">Sunday midnight</span></div>';
+    }else{
+      document.querySelector('.lb-tabs').style.display='';
+      renderLeaderboard(ld.leaderboard||[]);
+    }
   }catch(e){}
 }
 function renderLeaderboard(lb){
   $('lbc').innerHTML=lb.length?lb.map((l,i)=>'<div class="lb-row"><div class="r-rk" style="'+(i<3?'color:var(--b)':'')+'">'+(i+1)+'</div><div class="lb-ava">'+(l.picture?'<img src="'+l.picture+'" alt=""/>':"")+'</div><div class="lb-name">'+l.name+'</div><div class="vpill">'+hrt+'<span>'+l.votes+'</span></div></div>').join(''):'<div style="padding:20px;color:var(--t3);font-size:12px;text-align:center">No votes yet</div>';
 }
 function switchLb(mode){
+  if(document.querySelector('.lb-tabs').style.display==='none')return;
   lbMode=mode;
   $('lbt-all').classList.toggle('on',mode==='all');$('lbt-season').classList.toggle('on',mode==='session');
   $('lbc').innerHTML='<div class="lc"><div class="spin"></div></div>';
@@ -597,7 +606,7 @@ function switchLb(mode){
   api(endpoint).then(r=>r.json()).then(d=>{
     const lb=d.leaderboard||[];
     const weekLabel=d.week_id?'<div style="text-align:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--b);padding:8px 20px 0;opacity:.7">'+d.week_id+' · live</div>':'';
-    $('lbc').innerHTML=weekLabel+(lb.length?lb.map((l,i)=>'<div class="lb-row"><div class="r-rk" style="'+(i<3?'color:var(--b)':'')+'">'+(i+1)+'</div><div class="lb-ava">'+(l.picture?'<img src="'+l.picture+'" alt=""/>':"")+'</div><div class="lb-name">'+l.name+'</div><div class="vpill">'+hrt+'<span>'+l.votes+'</span></div></div>').join(''):'<div style="padding:28px 20px;color:var(--t3);font-size:12px;text-align:center;line-height:1.7">No votes this week yet.<br/>Cast yours first!</div>');
+    $('lbc').innerHTML=weekLabel+(lb.length?lb.map((l,i)=>'<div class="lb-row"><div class="r-rk" style="'+(i<3?'color:var(--b)':'')+'">'+(i+1)+'</div><div class="lb-ava">'+(l.picture?'<img src="'+l.picture+'" alt=""/>':"")+'</div><div class="lb-name">'+l.name+'</div><div class="vpill">'+hrt+'<span>'+l.votes+'</span></div></div>').join(''):'<div style="padding:28px 20px;color:var(--t3);font-size:12px;text-align:center;line-height:1.7">No votes this week yet.</div>');
   }).catch(function(){$('lbc').innerHTML='<div style="padding:20px;color:var(--t3);font-size:12px;text-align:center">Could not load</div>'});
 }
 async function loadWkRes(wk){
