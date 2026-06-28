@@ -23,16 +23,14 @@
   --br:#26262B;--br2:#3A3A3F;
   --ok:#4A7C59;--err:#8B3A3A;
   --r6:6px;--r12:12px;--r20:20px;--rpill:999px;
-
-  /* ── Liquid Glass tokens ── */
-  --gl-bg: rgba(255,255,255,0.045);
-  --gl-bg-hover: rgba(255,255,255,0.07);
-  --gl-border: rgba(255,255,255,0.09);
-  --gl-border-top: rgba(255,255,255,0.16);
-  --gl-shadow: 0 2px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
-  --gl-shadow-hover: 0 4px 32px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.12);
-  --gl-blur: blur(20px);
-  --gl-blur-heavy: blur(32px);
+  --gl-bg:rgba(255,255,255,0.045);
+  --gl-bg-hover:rgba(255,255,255,0.07);
+  --gl-border:rgba(255,255,255,0.09);
+  --gl-border-top:rgba(255,255,255,0.16);
+  --gl-shadow:0 2px 24px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.08);
+  --gl-shadow-hover:0 4px 32px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.12);
+  --gl-blur:blur(20px);
+  --gl-blur-heavy:blur(32px);
 }
 html,body{height:100%;background:var(--s);color:var(--t);font-family:"Inter",sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
 .serif{font-family:"Cormorant Garamond",serif}
@@ -58,7 +56,7 @@ html,body{height:100%;background:var(--s);color:var(--t);font-family:"Inter",san
 .auth-rule-txt{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--t3)}
 
 /* COUNTDOWN BANNER */
-.countdown-banner{background:linear-gradient(135deg,rgba(46,38,26,.7),rgba(20,20,23,.8));backdrop-filter:var(--gl-blur);border-bottom:1px solid var(--gl-border);border-top:0;box-shadow:inset 0 1px 0 var(--gl-border-top);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.countdown-banner{background:linear-gradient(135deg,rgba(46,38,26,.7),rgba(20,20,23,.8));backdrop-filter:var(--gl-blur);border-bottom:1px solid var(--gl-border);box-shadow:inset 0 1px 0 var(--gl-border-top);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .cd-item{display:flex;flex-direction:column;align-items:center;gap:2px}
 .cd-time{font-size:18px;font-weight:300;color:var(--b);font-family:"Cormorant Garamond",serif;letter-spacing:1px}
 .cd-label{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
@@ -193,7 +191,7 @@ textarea::placeholder{color:var(--t3)}
 .lb-name{flex:1;font-size:13px;font-weight:500}
 
 /* PROFILE */
-.prof-cover{height:190px;position:relative;background:url("https://images.unsplash.com/photo-1727188211338-297f08d42827?w=900") center/cover;flex-shrink:0}
+.prof-cover{height:190px;position:relative;background:url("https://images.unsplash.com/photo-1514565131-fce0801e6785?w=900&q=80") center/cover;flex-shrink:0}
 .prof-cover-scrim{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(10,10,12,.65) 70%,#0A0A0C 100%)}
 .prof-so{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(10,10,12,.4);backdrop-filter:var(--gl-blur);border:1px solid var(--gl-border);box-shadow:inset 0 1px 0 var(--gl-border-top),var(--gl-shadow);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);transition:all .2s}
 .prof-so:hover{background:rgba(10,10,12,.6);color:var(--t)}
@@ -214,6 +212,14 @@ textarea::placeholder{color:var(--t3)}
 .pt img{width:100%;height:100%;object-fit:cover}
 .pt-v{position:absolute;bottom:5px;right:5px;background:rgba(0,0,0,.72);padding:3px 6px;border-radius:var(--r6);font-size:9px;font-weight:500;display:flex;align-items:center;gap:3px}
 .pt-v svg{width:9px;height:9px;fill:var(--b)}
+
+/* TAGS */
+.tags-section{padding:0 16px 20px}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tag-pill{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:var(--rpill);border:1px solid var(--gl-border);background:var(--gl-bg);backdrop-filter:var(--gl-blur);box-shadow:inset 0 1px 0 var(--gl-border-top);color:var(--t3);font-size:11px;letter-spacing:.5px;cursor:pointer;transition:all .25s;font-family:inherit;user-select:none}
+.tag-pill:hover{background:var(--gl-bg-hover);color:var(--t2)}
+.tag-pill.on{border-color:rgba(212,184,140,.35);background:linear-gradient(135deg,rgba(46,38,26,.65),rgba(30,24,14,.75));backdrop-filter:var(--gl-blur);box-shadow:inset 0 1px 0 rgba(212,184,140,.12),0 2px 12px rgba(0,0,0,.3);color:var(--b)}
+.tags-hint{font-size:10px;color:var(--t3);letter-spacing:.3px;margin-top:8px;text-align:center}
 
 /* UTILS */
 .spin{width:22px;height:22px;border:1.5px solid var(--br2);border-top-color:var(--b);border-radius:50%;animation:sp .75s linear infinite;margin:0 auto}
@@ -254,18 +260,18 @@ textarea::placeholder{color:var(--t3)}
   <!-- Gallery -->
   <div id="tg" class="main">
     <div class="countdown-banner" id="cdbanner">
-      <div class="cd-item"><div class="cd-time" id="cd-d">—</div><div class="cd-label">Days</div></div>
+      <div class="cd-item"><div class="cd-time" id="cd-d">--</div><div class="cd-label">Days</div></div>
       <div class="cd-sep">:</div>
-      <div class="cd-item"><div class="cd-time" id="cd-h">—</div><div class="cd-label">Hours</div></div>
+      <div class="cd-item"><div class="cd-time" id="cd-h">--</div><div class="cd-label">Hours</div></div>
       <div class="cd-sep">:</div>
-      <div class="cd-item"><div class="cd-time" id="cd-m">—</div><div class="cd-label">Mins</div></div>
+      <div class="cd-item"><div class="cd-time" id="cd-m">--</div><div class="cd-label">Mins</div></div>
       <div class="cd-sep">:</div>
-      <div class="cd-item"><div class="cd-time" id="cd-s">—</div><div class="cd-label">Secs</div></div>
+      <div class="cd-item"><div class="cd-time" id="cd-s">--</div><div class="cd-label">Secs</div></div>
       <div class="cd-note">Voting closes<br>Sunday midnight</div>
     </div>
     <div class="ph">
-      <div><div class="ph-ey">This week</div><div class="ph-ti" id="gwk">—</div></div>
-      <div class="ph-ri"><div class="n" id="gcnt">—</div><div class="l">entries</div></div>
+      <div><div class="ph-ey">This week</div><div class="ph-ti" id="gwk">--</div></div>
+      <div class="ph-ri"><div class="n" id="gcnt">--</div><div class="l">entries</div></div>
     </div>
     <div id="gc"><div class="lc"><div class="spin"></div></div></div>
   </div>
@@ -303,9 +309,9 @@ textarea::placeholder{color:var(--t3)}
       </div>
       <div>
         <div class="fl">Caption (optional)</div>
-        <textarea id="cap" placeholder="A line about your frame…" maxlength="140"></textarea>
+        <textarea id="cap" placeholder="A line about your frame..." maxlength="140"></textarea>
       </div>
-      <div class="compress-note" id="compress-note" style="display:none">📦 Image compressed for faster upload</div>
+      <div class="compress-note" id="compress-note" style="display:none">Image compressed for faster upload</div>
       <div id="ust"></div>
       <button class="sub-btn" id="sbtn" disabled onclick="submitPhoto()">Submit for this week</button>
     </div>
@@ -334,7 +340,7 @@ textarea::placeholder{color:var(--t3)}
     </div>
     <div class="prof-id">
       <div class="prof-ava"><img id="ppic" src="" alt=""/></div>
-      <div><div class="prof-nm" id="pnm">—</div><div class="prof-em" id="pem">—</div></div>
+      <div><div class="prof-nm" id="pnm">--</div><div class="prof-em" id="pem">--</div></div>
     </div>
     <div class="stats">
       <div class="stat"><div class="stat-n" id="ssub">0</div><div class="stat-l">Submitted</div></div>
@@ -342,6 +348,11 @@ textarea::placeholder{color:var(--t3)}
       <div class="stat"><div class="stat-n hi" id="swin">0</div><div class="stat-l">Wins</div></div>
       <div class="stat-div"></div>
       <div class="stat"><div class="stat-n" id="svot">0</div><div class="stat-l">Votes</div></div>
+    </div>
+    <div class="sec-t">Your style</div>
+    <div class="tags-section">
+      <div class="tags-wrap" id="tags-wrap"></div>
+      <div class="tags-hint" id="tags-hint"></div>
     </div>
     <div class="sec-t">Your frames</div>
     <div id="pgc"><div class="lc"><div class="spin"></div></div></div>
@@ -392,61 +403,39 @@ textarea::placeholder{color:var(--t3)}
 const B='https://lumina-ba90.onrender.com';
 const AU='https://auth.emergentagent.com/';
 let tok=localStorage.getItem('lt'),user=null,curPid=null,selB64=null,actWk=null,lbMode='all',replaceId=null;
+let selectedTags=[],tagSaveTimer=null;
 
 const $=id=>document.getElementById(id);
 const hrt='<svg viewBox="0 0 24 24" fill="#D4B88C" width="11" height="11"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 
-// ── COUNTDOWN ──
+// COUNTDOWN
 function getWeekEnd(){
-  const now=new Date();
-  const d=now.getDay();
-  const diff=(d===0?0:7-d);
-  const end=new Date(now);
-  end.setDate(now.getDate()+diff);
-  end.setHours(23,59,59,0);
-  return end;
+  const now=new Date(),d=now.getDay(),diff=(d===0?0:7-d),end=new Date(now);
+  end.setDate(now.getDate()+diff);end.setHours(23,59,59,0);return end;
 }
 function updateCountdown(){
-  const end=getWeekEnd();
-  const diff=end-new Date();
+  const end=getWeekEnd(),diff=end-new Date();
   if(diff<=0){$('cd-d').textContent='00';$('cd-h').textContent='00';$('cd-m').textContent='00';$('cd-s').textContent='00';return}
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor((diff%86400000)/3600000);
-  const m=Math.floor((diff%3600000)/60000);
-  const s=Math.floor((diff%60000)/1000);
-  $('cd-d').textContent=String(d).padStart(2,'0');
-  $('cd-h').textContent=String(h).padStart(2,'0');
-  $('cd-m').textContent=String(m).padStart(2,'0');
-  $('cd-s').textContent=String(s).padStart(2,'0');
+  const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  $('cd-d').textContent=String(d).padStart(2,'0');$('cd-h').textContent=String(h).padStart(2,'0');$('cd-m').textContent=String(m).padStart(2,'0');$('cd-s').textContent=String(s).padStart(2,'0');
 }
-setInterval(updateCountdown,1000);
-updateCountdown();
+setInterval(updateCountdown,1000);updateCountdown();
 
-// ── IMAGE COMPRESSION ──
+// IMAGE COMPRESSION
 function compressImage(file,maxW,maxH,quality){
   return new Promise(res=>{
-    const img=new Image();
-    const url=URL.createObjectURL(file);
+    const img=new Image(),url=URL.createObjectURL(file);
     img.onload=()=>{
       let{width,height}=img;
-      if(width>maxW||height>maxH){
-        const ratio=Math.min(maxW/width,maxH/height);
-        width=Math.round(width*ratio);
-        height=Math.round(height*ratio);
-      }
-      const canvas=document.createElement('canvas');
-      canvas.width=width;canvas.height=height;
-      const ctx=canvas.getContext('2d');
-      ctx.drawImage(img,0,0,width,height);
-      const b64=canvas.toDataURL('image/jpeg',quality).split(',')[1];
-      URL.revokeObjectURL(url);
-      res(b64);
-    };
-    img.src=url;
+      if(width>maxW||height>maxH){const ratio=Math.min(maxW/width,maxH/height);width=Math.round(width*ratio);height=Math.round(height*ratio)}
+      const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+      canvas.getContext('2d').drawImage(img,0,0,width,height);
+      URL.revokeObjectURL(url);res(canvas.toDataURL('image/jpeg',quality).split(',')[1]);
+    };img.src=url;
   });
 }
 
-// ── AUTH ──
+// AUTH
 function signIn(){window.location.href=AU+'?redirect='+encodeURIComponent(location.origin+location.pathname)}
 async function signOut(){try{await api('/api/auth/logout',{method:'POST'})}catch(e){}localStorage.removeItem('lt');tok=null;user=null;$('auth').classList.add('active');$('main').classList.remove('active')}
 async function handleCB(){
@@ -469,7 +458,7 @@ async function api(p,o={}){
   return fetch(B+p,{...o,headers:h});
 }
 
-// ── TABS ──
+// TABS
 function sw(t){
   const map={g:'tg',u:'tu',r:'tr',p:'tp'};
   Object.entries(map).forEach(([k,v])=>{$(v).classList.toggle('hide',k!==t)});
@@ -480,123 +469,97 @@ function sw(t){
   if(t==='p')loadProfile();
 }
 
-// ── GALLERY ──
+// GALLERY
 async function loadGallery(){
   try{
     const r=await api('/api/photos/current');const d=await r.json();
-    $('gwk').textContent=d.week_id||'—';$('gcnt').textContent=(d.photos||[]).length;
+    $('gwk').textContent=d.week_id||'--';$('gcnt').textContent=(d.photos||[]).length;
     if(!d.photos||!d.photos.length){
       $('gc').innerHTML='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><div class="empty-t">The frame is empty</div><p class="empty-s">Be the first to submit this week</p><button class="pill-btn" onclick="sw(\'u\')">Submit a photo</button></div>';return;
     }
-    $('gc').innerHTML='<div class="grid">'+d.photos.map(p=>`<div class="tile" onclick="openModal('${p.photo_id}')"><img src="${p.image_url}" loading="lazy"/>${p.is_mine?'<div class="tile-mine">YOURS</div>':''}${d.voted_photo_id===p.photo_id?`<div class="tile-voted">${hrt} Voted</div>`:''}</div>`).join('')+'</div>';
+    $('gc').innerHTML='<div class="grid">'+d.photos.map(p=>'<div class="tile" onclick="openModal(\''+p.photo_id+'\')"><img src="'+p.image_url+'" loading="lazy"/>'+(p.is_mine?'<div class="tile-mine">YOURS</div>':'')+(d.voted_photo_id===p.photo_id?'<div class="tile-voted">'+hrt+' Voted</div>':'')+'</div>').join('')+'</div>';
   }catch(e){$('gc').innerHTML='<div class="empty"><div class="empty-t">Could not load</div><p class="empty-s">Check your connection</p></div>'}
 }
 
-// ── MODAL ──
+// MODAL
 async function openModal(pid){
   curPid=pid;$('modal').classList.add('open');
-  $('mimg').src='';$('mid').innerHTML='<div class="modal-anon">Loading…</div>';$('mcap').textContent='';$('merr').style.display='none';
+  $('mimg').src='';$('mid').innerHTML='<div class="modal-anon">Loading...</div>';$('mcap').textContent='';$('merr').style.display='none';
   try{
     const r=await api('/api/photos/'+pid);const p=await r.json();
     $('mimg').src=p.image_url;
     $('mwk').textContent=p.week_id+(p.is_current_week?' · live':'');
     if(p.author_name){
-      $('mid').innerHTML=`<div class="modal-auth-row"><div class="modal-ava">${p.author_picture?'<img src="'+p.author_picture+'" alt=""/>':''}</div><div class="modal-aname">${p.author_name}</div>${typeof p.votes_count==='number'?`<div class="vpill">${hrt}<span>${p.votes_count}</span></div>`:''}</div>`;
+      $('mid').innerHTML='<div class="modal-auth-row"><div class="modal-ava">'+(p.author_picture?'<img src="'+p.author_picture+'" alt=""/>':"")+'</div><div class="modal-aname">'+p.author_name+'</div>'+(typeof p.votes_count==='number'?'<div class="vpill">'+hrt+'<span>'+p.votes_count+'</span></div>':'')+'</div>';
     }else{$('mid').innerHTML='<div class="modal-anon">Anonymous · identity reveals at week close</div>'}
     $('mcap').textContent=p.caption||'';
     const btn=$('vbtn');
     const vtd=p.user_voted_photo_id===p.photo_id,av=!!p.user_voted_photo_id,can=p.is_current_week&&!p.is_mine&&!av;
     btn.disabled=!can;btn.className='vote-btn'+(vtd?' voted':'');
-    if(p.is_mine)btn.innerHTML=`<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Your own entry`;
-    else if(vtd)btn.innerHTML='✓ You voted for this';
+    if(p.is_mine)btn.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Your own entry';
+    else if(vtd)btn.innerHTML='Voted for this';
     else if(av)btn.innerHTML='Already voted this week';
     else if(!p.is_current_week)btn.innerHTML='Voting closed';
-    else btn.innerHTML=`<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Vote for this photo`;
+    else btn.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Vote for this photo';
   }catch(e){$('mid').innerHTML='<div class="modal-anon">Error loading</div>'}
 }
 function closeModal(){$('modal').classList.remove('open');curPid=null}
 async function castVote(){
-  if(!curPid)return;const btn=$('vbtn');btn.disabled=true;btn.textContent='Voting…';
+  if(!curPid)return;const btn=$('vbtn');btn.disabled=true;btn.textContent='Voting...';
   try{
     const r=await api('/api/votes',{method:'POST',body:JSON.stringify({photo_id:curPid})});
-    if(r.ok){toast('Vote cast ✓');closeModal();loadGallery()}
-    else{const e=await r.json().catch(()=>({}));$('merr').textContent=e.detail||'Vote failed';$('merr').style.display='block';btn.disabled=false;btn.innerHTML=`<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Vote for this photo`}
+    if(r.ok){toast('Vote cast');closeModal();loadGallery()}
+    else{const e=await r.json().catch(()=>({}));$('merr').textContent=e.detail||'Vote failed';$('merr').style.display='block';btn.disabled=false;btn.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Vote for this photo'}
   }catch(e){btn.disabled=false}
 }
 
-// ── UPLOAD + REPLACE ──
+// UPLOAD + REPLACE
 async function loadQuota(){
   try{
     const r=await api('/api/photos/current');const d=await r.json();
-    const mine=(d.photos||[]).filter(p=>p.is_mine);
-    const m=mine.length;
-    $('qtext').textContent=`This week: ${m} / 3 submitted`;
-    $('qwk').textContent=d.week_id||'';
-    $('qfill').style.width=(m/3*100)+'%';
+    const mine=(d.photos||[]).filter(p=>p.is_mine);const m=mine.length;
+    $('qtext').textContent='This week: '+m+' / 3 submitted';$('qwk').textContent=d.week_id||'';$('qfill').style.width=(m/3*100)+'%';
     if(m>0){
       $('my-subs-section').classList.remove('hide');
-      $('my-subs-list').innerHTML=mine.map(p=>`<div class="my-sub-card"><img class="my-sub-thumb" src="${p.image_url}"/><div class="my-sub-info"><div style="font-size:12px;font-weight:500">Photo ${mine.indexOf(p)+1}</div><div class="my-sub-cap">${p.caption||'No caption'}</div></div><button class="replace-btn" onclick="startReplace('${p.photo_id}')">Replace</button></div>`).join('');
+      $('my-subs-list').innerHTML=mine.map((p,i)=>'<div class="my-sub-card"><img class="my-sub-thumb" src="'+p.image_url+'"/><div class="my-sub-info"><div style="font-size:12px;font-weight:500">Photo '+(i+1)+'</div><div class="my-sub-cap">'+(p.caption||'No caption')+'</div></div><button class="replace-btn" onclick="startReplace(\''+p.photo_id+'\')">Replace</button></div>').join('');
     }else{$('my-subs-section').classList.add('hide')}
-    if(m>=3&&!replaceId){$('ust').innerHTML='<div class="warn">⚠️ You\'ve submitted 3 photos this week (the maximum). You can still replace existing ones using the buttons above.</div>';$('sbtn').disabled=true}
+    if(m>=3&&!replaceId){$('ust').innerHTML='<div class="warn">You have submitted 3 photos this week (maximum). Replace existing ones using the buttons above.</div>';$('sbtn').disabled=true}
     else{$('ust').innerHTML='';$('sbtn').disabled=!selB64}
   }catch(e){}
 }
-
-function startReplace(pid){
-  replaceId=pid;
-  toast('Pick a new photo to replace this one');
-  document.getElementById('fi').click();
-}
-
+function startReplace(pid){replaceId=pid;toast('Pick a new photo to replace this one');document.getElementById('fi').click()}
 function handleFile(e){
   const f=e.target.files[0];if(!f)return;
-  const maxMB=10;
-  if(!['image/jpeg','image/jpg','image/png'].includes(f.type)){
-    $('ust').innerHTML='<div class="st-err">⚠️ Only JPG or PNG files are allowed.</div>';
-    e.target.value='';return;
-  }
-  if(f.size>maxMB*1024*1024){
-    $('ust').innerHTML='<div class="st-err">⚠️ File too large. Maximum size is 10MB. Please choose a smaller image.</div>';
-    e.target.value='';return;
-  }
-  $('ust').innerHTML='<div style="text-align:center;color:var(--t3);font-size:12px;padding:4px">Compressing…</div>';
+  if(!['image/jpeg','image/jpg','image/png'].includes(f.type)){$('ust').innerHTML='<div class="st-err">Only JPG or PNG files are allowed.</div>';e.target.value='';return}
+  if(f.size>10*1024*1024){$('ust').innerHTML='<div class="st-err">File too large. Max 10MB.</div>';e.target.value='';return}
+  $('ust').innerHTML='<div style="text-align:center;color:var(--t3);font-size:12px;padding:4px">Compressing...</div>';
   compressImage(f,1200,1500,0.78).then(b64=>{
     selB64=b64;
-    const previewSrc='data:image/jpeg;base64,'+b64;
-    $('prevbox').innerHTML=`<img src="${previewSrc}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r20)"/><div class="replace-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Change photo</span></div>`;
-    $('compress-note').style.display='block';
-    $('ust').innerHTML='';
+    $('prevbox').innerHTML='<img src="data:image/jpeg;base64,'+b64+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r20)"/><div class="replace-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Change photo</span></div>';
+    $('compress-note').style.display='block';$('ust').innerHTML='';
     if(replaceId)$('sbtn').textContent='Replace photo';
     $('sbtn').disabled=false;
   });
 }
-
 async function submitPhoto(){
   if(!selB64)return;
-  const btn=$('sbtn');btn.disabled=true;
-  const isReplace=!!replaceId;
-  btn.textContent=isReplace?'Replacing…':'Submitting…';
+  const btn=$('sbtn');btn.disabled=true;const isReplace=!!replaceId;
+  btn.textContent=isReplace?'Replacing...':'Submitting...';
   try{
     let r;
     if(isReplace){
       r=await api('/api/photos/'+replaceId,{method:'PUT',body:JSON.stringify({image_base64:selB64,caption:$('cap').value})});
-      if(!r.ok){
-        r=await api('/api/photos',{method:'POST',body:JSON.stringify({image_base64:selB64,caption:$('cap').value})});
-      }
+      if(!r.ok)r=await api('/api/photos',{method:'POST',body:JSON.stringify({image_base64:selB64,caption:$('cap').value})});
     }else{
       const qr=await api('/api/photos/current');const qd=await qr.json();
-      const m=(qd.photos||[]).filter(p=>p.is_mine).length;
-      if(m>=3){$('ust').innerHTML='<div class="warn">⚠️ Maximum 3 photos per week. Use Replace on an existing photo instead.</div>';btn.disabled=false;btn.textContent='Submit for this week';return}
+      if((qd.photos||[]).filter(p=>p.is_mine).length>=3){$('ust').innerHTML='<div class="warn">Maximum 3 photos per week. Use Replace instead.</div>';btn.disabled=false;btn.textContent='Submit for this week';return}
       r=await api('/api/photos',{method:'POST',body:JSON.stringify({image_base64:selB64,caption:$('cap').value})});
     }
     if(r&&r.ok){
-      toast(isReplace?'Photo replaced ✓':'Photo submitted 📷');
-      selB64=null;replaceId=null;
-      $('cap').value='';
-      $('compress-note').style.display='none';
+      toast(isReplace?'Photo replaced':'Photo submitted');
+      selB64=null;replaceId=null;$('cap').value='';$('compress-note').style.display='none';
       $('prevbox').innerHTML='<svg class="ph-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="ph-tx">Tap to pick a photo</span><input type="file" id="fi" accept="image/jpeg,image/png,image/jpg" style="display:none" onchange="handleFile(event)"/>';
-      btn.textContent='Submit for this week';
-      loadQuota();setTimeout(()=>sw('g'),600);
+      btn.textContent='Submit for this week';loadQuota();setTimeout(()=>sw('g'),600);
     }else{
       const er=r?await r.json().catch(()=>({})):{};
       $('ust').innerHTML='<div class="st-err">'+(er.detail||'Upload failed')+'</div>';
@@ -605,47 +568,38 @@ async function submitPhoto(){
   }catch(e){$('ust').innerHTML='<div class="st-err">Network error. Try again.</div>';btn.disabled=false;btn.textContent='Submit for this week'}
 }
 
-// ── RESULTS with TIED ──
+// RESULTS
 function assignRanks(results){
   return results.map((p,i,arr)=>{
     const prev=arr[i-1];
     const tied=prev&&prev.votes_count===p.votes_count&&p.votes_count>0;
     const rank=tied?arr.findIndex(x=>x.votes_count===p.votes_count)+1:i+1;
-    return{...p,rank,tied:tied||(i<arr.length-1&&arr[i+1]&&arr[i+1].votes_count===p.votes_count&&p.votes_count>0)};
+    return Object.assign({},p,{rank:rank,tied:tied||(i<arr.length-1&&arr[i+1]&&arr[i+1].votes_count===p.votes_count&&p.votes_count>0)});
   });
 }
-
 async function loadResults(){
   try{
     const[wr,lr]=await Promise.all([api('/api/results/weeks'),api('/api/leaderboard')]);
     const wd=await wr.json();const ld=await lr.json();
     const wks=[wd.current_week,...(wd.past_weeks||[])].filter(Boolean);
-    $('wchips').innerHTML=wks.map(w=>`<button class="chip${w===(actWk||wks[0])?' on':''}" onclick="loadWkRes('${w}')">${w}${w===wd.current_week?' · live':''}</button>`).join('');
-    loadWkRes(actWk||wks[0]);
-    renderLeaderboard(ld.leaderboard||[]);
+    $('wchips').innerHTML=wks.map(w=>'<button class="chip'+(w===(actWk||wks[0])?' on':'')+'" onclick="loadWkRes(\''+w+'\')">'+w+(w===wd.current_week?' · live':'')+'</button>').join('');
+    loadWkRes(actWk||wks[0]);renderLeaderboard(ld.leaderboard||[]);
   }catch(e){}
 }
-
 function renderLeaderboard(lb){
-  $('lbc').innerHTML=lb.length?lb.map((l,i)=>`<div class="lb-row"><div class="r-rk" style="${i<3?'color:var(--b)':''}">${i+1}</div><div class="lb-ava">${l.picture?'<img src="'+l.picture+'" alt=""/>':''}</div><div class="lb-name">${l.name}</div><div class="vpill">${hrt}<span>${l.votes}</span></div></div>`).join(''):'<div style="padding:20px;color:var(--t3);font-size:12px;text-align:center">No votes yet</div>';
+  $('lbc').innerHTML=lb.length?lb.map((l,i)=>'<div class="lb-row"><div class="r-rk" style="'+(i<3?'color:var(--b)':'')+'">'+(i+1)+'</div><div class="lb-ava">'+(l.picture?'<img src="'+l.picture+'" alt=""/>':"")+'</div><div class="lb-name">'+l.name+'</div><div class="vpill">'+hrt+'<span>'+l.votes+'</span></div></div>').join(''):'<div style="padding:20px;color:var(--t3);font-size:12px;text-align:center">No votes yet</div>';
 }
-
 function switchLb(mode){
   lbMode=mode;
-  $('lbt-all').classList.toggle('on',mode==='all');
-  $('lbt-season').classList.toggle('on',mode==='session');
+  $('lbt-all').classList.toggle('on',mode==='all');$('lbt-season').classList.toggle('on',mode==='session');
   $('lbc').innerHTML='<div class="lc"><div class="spin"></div></div>';
-  const endpoint = mode==='session' ? '/api/leaderboard/session' : '/api/leaderboard';
+  const endpoint=mode==='session'?'/api/leaderboard/session':'/api/leaderboard';
   api(endpoint).then(r=>r.json()).then(d=>{
-    const lb = d.leaderboard || [];
-    const weekLabel = d.week_id ? `<div style="text-align:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--b);padding:8px 20px 0;opacity:.7">${d.week_id} · live</div>` : '';
-    $('lbc').innerHTML = weekLabel + (lb.length
-      ? lb.map((l,i)=>`<div class="lb-row"><div class="r-rk" style="${i<3?'color:var(--b)':''}">${i+1}</div><div class="lb-ava">${l.picture?'<img src="'+l.picture+'" alt=""/>':''}</div><div class="lb-name">${l.name}</div><div class="vpill">${hrt}<span>${l.votes}</span></div></div>`).join('')
-      : '<div style="padding:28px 20px;color:var(--t3);font-size:12px;text-align:center;line-height:1.7">No votes this week yet.<br/>Cast yours first!</div>'
-    );
-  }).catch(()=>{$('lbc').innerHTML='<div style="padding:20px;color:var(--t3);font-size:12px;text-align:center">Could not load</div>'});
+    const lb=d.leaderboard||[];
+    const weekLabel=d.week_id?'<div style="text-align:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--b);padding:8px 20px 0;opacity:.7">'+d.week_id+' · live</div>':'';
+    $('lbc').innerHTML=weekLabel+(lb.length?lb.map((l,i)=>'<div class="lb-row"><div class="r-rk" style="'+(i<3?'color:var(--b)':'')+'">'+(i+1)+'</div><div class="lb-ava">'+(l.picture?'<img src="'+l.picture+'" alt=""/>':"")+'</div><div class="lb-name">'+l.name+'</div><div class="vpill">'+hrt+'<span>'+l.votes+'</span></div></div>').join(''):'<div style="padding:28px 20px;color:var(--t3);font-size:12px;text-align:center;line-height:1.7">No votes this week yet.<br/>Cast yours first!</div>');
+  }).catch(function(){$('lbc').innerHTML='<div style="padding:20px;color:var(--t3);font-size:12px;text-align:center">Could not load</div>'});
 }
-
 async function loadWkRes(wk){
   actWk=wk;
   document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.textContent.startsWith(wk)));
@@ -654,38 +608,69 @@ async function loadWkRes(wk){
     const r=await api('/api/results/week/'+wk);const d=await r.json();
     const raw=d.results||[];
     if(!raw.length){$('rc').innerHTML='<div class="empty"><div class="empty-t">No entries yet</div></div>';return}
-    const rs=assignRanks(raw);
-    const pod=rs.slice(0,3),rest=rs.slice(3,10);
+    const rs=assignRanks(raw);const pod=rs.slice(0,3),rest=rs.slice(3,10);
     let h=d.is_current?'<div class="live-n">Live tally · names reveal at week close</div>':'';
-    h+='<div class="pod-list">'+pod.map(p=>`<div class="pod-card"><img src="${p.image_url}" loading="lazy"/><div class="pod-scrim"></div><div class="pod-rank${p.tied?' tied':''}">${p.tied?'TIE':p.rank}</div><div class="pod-foot"><div class="pod-name">${d.is_current?'Anonymous':p.author_name}</div><div class="vpill">${hrt}<span>${p.votes_count}</span></div></div></div>`).join('')+'</div>';
-    if(rest.length)h+='<div class="sec-t">4 — 10</div>'+rest.map(p=>`<div class="r-row"><div class="r-rk">${p.tied?'='+p.rank:p.rank}</div><img class="r-thumb" src="${p.image_url}" loading="lazy"/><div class="r-inf"><div class="r-name">${d.is_current?'Anonymous':p.author_name}</div>${p.caption?'<div class="r-cap">'+p.caption+'</div>':''}</div><div class="vpill">${hrt}<span>${p.votes_count}</span></div></div>`).join('');
+    h+='<div class="pod-list">'+pod.map(p=>'<div class="pod-card"><img src="'+p.image_url+'" loading="lazy"/><div class="pod-scrim"></div><div class="pod-rank'+(p.tied?' tied':'')+'">'+( p.tied?'TIE':p.rank)+'</div><div class="pod-foot"><div class="pod-name">'+(d.is_current?'Anonymous':p.author_name)+'</div><div class="vpill">'+hrt+'<span>'+p.votes_count+'</span></div></div></div>').join('')+'</div>';
+    if(rest.length)h+='<div class="sec-t">4 -- 10</div>'+rest.map(p=>'<div class="r-row"><div class="r-rk">'+(p.tied?'='+p.rank:p.rank)+'</div><img class="r-thumb" src="'+p.image_url+'" loading="lazy"/><div class="r-inf"><div class="r-name">'+(d.is_current?'Anonymous':p.author_name)+'</div>'+(p.caption?'<div class="r-cap">'+p.caption+'</div>':'')+'</div><div class="vpill">'+hrt+'<span>'+p.votes_count+'</span></div></div>').join('');
     $('rc').innerHTML=h;
   }catch(e){}
 }
 
-// ── PROFILE ──
+// PROFILE
 async function loadProfile(){
   if(!user)return;
   $('pnm').textContent=user.name;$('pem').textContent=user.email;
   if(user.picture)$('ppic').src=user.picture;
+  selectedTags=user.tags||[];renderTags();
   try{
     const r=await api('/api/me/photos');const d=await r.json();
     $('ssub').textContent=d.submissions||0;$('swin').textContent=d.wins||0;
-    $('svot').textContent=(d.photos||[]).reduce((a,p)=>a+p.votes_count,0);
+    $('svot').textContent=(d.photos||[]).reduce(function(a,p){return a+p.votes_count},0);
     const ph=d.photos||[];
-    $('pgc').innerHTML=ph.length?'<div class="pg">'+ph.map(p=>`<div class="pt"><img src="${p.image_url}" loading="lazy"/>${p.votes_count>0?'<div class="pt-v">'+hrt+p.votes_count+'</div>':''}</div>`).join('')+'</div>':'<div class="empty"><div class="empty-t">No frames yet</div><p class="empty-s">Upload your first photo</p><button class="pill-btn" onclick="sw(\'u\')">Submit a photo</button></div>';
+    $('pgc').innerHTML=ph.length?'<div class="pg">'+ph.map(p=>'<div class="pt"><img src="'+p.image_url+'" loading="lazy"/>'+(p.votes_count>0?'<div class="pt-v">'+hrt+p.votes_count+'</div>':'')+'</div>').join('')+'</div>':'<div class="empty"><div class="empty-t">No frames yet</div><p class="empty-s">Upload your first photo</p><button class="pill-btn" onclick="sw(\'u\')">Submit a photo</button></div>';
   }catch(e){}
 }
 
-function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+// TAGS
+const ALL_TAGS=[
+  {id:'street',label:'Street',emoji:'🌆'},
+  {id:'portrait',label:'Portrait',emoji:'📷'},
+  {id:'macro',label:'Macro',emoji:'🔬'},
+  {id:'nature',label:'Nature',emoji:'🌿'},
+  {id:'architecture',label:'Architecture',emoji:'🏙'},
+  {id:'golden_hour',label:'Golden Hour',emoji:'🌅'},
+  {id:'dark_moody',label:'Dark & Moody',emoji:'🖤'},
+  {id:'minimalist',label:'Minimalist',emoji:'✨'},
+  {id:'film',label:'Film',emoji:'🎞'},
+  {id:'abstract',label:'Abstract',emoji:'🌀'},
+  {id:'still_life',label:'Still Life',emoji:'📦'},
+  {id:'night',label:'Night',emoji:'🌃'}
+];
+function renderTags(){
+  const wrap=$('tags-wrap'),hint=$('tags-hint');
+  if(!wrap)return;
+  wrap.innerHTML=ALL_TAGS.map(function(t){return '<button class="tag-pill'+(selectedTags.includes(t.id)?' on':'')+'" onclick="toggleTag(\''+t.id+'\')"><span>'+t.emoji+'</span><span>'+t.label+'</span></button>'}).join('');
+  hint.textContent=selectedTags.length===0?'Pick up to 5 tags that describe your style':selectedTags.length+' / 5 selected';
+}
+function toggleTag(id){
+  if(selectedTags.includes(id)){selectedTags=selectedTags.filter(function(t){return t!==id})}
+  else{if(selectedTags.length>=5){toast('Max 5 tags');return}selectedTags.push(id)}
+  renderTags();clearTimeout(tagSaveTimer);tagSaveTimer=setTimeout(saveTags,800);
+}
+async function saveTags(){
+  try{await api('/api/me/tags',{method:'PUT',body:JSON.stringify({tags:selectedTags})})}catch(e){}
+}
 
-(async()=>{if(!await handleCB()){if(await checkAuth())showApp()}})();
+// TOAST
+function toast(msg){
+  const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200);
+}
+
+(async function(){if(!await handleCB()){if(await checkAuth())showApp()}})();
 </script>
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(()=>{});
-  });
+  window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
 }
 </script>
 </body>
