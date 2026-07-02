@@ -438,14 +438,30 @@ function compressImage(file,maxW,maxH,quality){
 // AUTH
 function signIn(){window.location.href=AU+'?redirect='+encodeURIComponent(location.origin+location.pathname)}
 async function signOut(){try{await api('/api/auth/logout',{method:'POST'})}catch(e){}localStorage.removeItem('lt');tok=null;user=null;$('auth').classList.add('active');$('main').classList.remove('active')}
+
 async function handleCB(){
   const m=location.href.match(/[#?&]session_id=([^&]+)/);
   if(!m)return false;
+  const sessionId = decodeURIComponent(m[1]);
+  for(let attempt=0; attempt<2; attempt++){
+    try{
+      const r=await fetch(B+'/api/auth/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_token:sessionId})});
+      if(r.ok){
+        const d=await r.json();
+        tok=d.session_token;localStorage.setItem('lt',tok);user=d.user;
+        history.replaceState(null,'',location.pathname);
+        showApp();
+        return true;
+      }
+    }catch(e){
+      if(attempt===0) await new Promise(res=>setTimeout(res,1200));
+    }
+  }
   history.replaceState(null,'',location.pathname);
-  const r=await fetch(B+'/api/auth/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_token:decodeURIComponent(m[1])})});
-  if(r.ok){const d=await r.json();tok=d.session_token;localStorage.setItem('lt',tok);user=d.user;showApp();return true}
+  $('auth').innerHTML += '<p style="color:#e8a;text-align:center;margin-top:12px;font-size:12px">Sign-in had trouble connecting. Please tap Continue with Google again.</p>';
   return false;
 }
+
 async function checkAuth(){
   if(!tok)return false;
   try{const r=await fetch(B+'/api/auth/me',{headers:{Authorization:'Bearer '+tok}});if(r.ok){const d=await r.json();user=d.user;return true}}catch(e){}
